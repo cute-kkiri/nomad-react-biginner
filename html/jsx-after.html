@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>React</title>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<!-- React 엔진 -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<!-- React element UI 생성 -->
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<!-- babel - 브라우저가 jsx를 이해하게 도와주는 도구? -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    const root = document.getElementById("root");
+    function Title() {
+        return (
+            <h3 id="title"
+                onMouseEnter={() => console.log("mouse enter")}
+            >Hello I'm a span</h3>
+        )
+    };
+    const Button = () => (
+        <button style={{ backgroundColor: "tomato" }}
+            onClick={() => console.log("im clicked")}
+        >Click me</button>
+    );
+
+    const Container = () => (
+        <div>
+            <Title />
+            <Button />
+        </div>
+    );
+
+    ReactDOM.render(<Container />, root);
+</script>
+
+</html>

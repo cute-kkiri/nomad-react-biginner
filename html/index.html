@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>React - props</title>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<!-- production.min으로 사용할 때는 일반적인 html property를 사용하는데에 문제가 없었지만 development 모드에서는 javascript에서 선점된 예약어는 사용할 수 없다. -->
+<!-- 따라서 class -> className, for -> htmlFor 등과 같이 바꿔서 작성해줘야 한다. -->
+<!-- React 엔진 -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<!-- React element UI 생성 -->
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<!-- props 값을 잘못된 값으로 넘기는 것을 방지하기 위해 props의 type을 알려주는 도구 -->
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<!-- babel - 브라우저가 jsx를 이해하게 도와주는 도구? -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    // argument에 값을 주는건 javascript 문법
+    function Btn({ text, fontSize = 12 }) {
+        return (
+            <button
+                style={{
+                    backgroundColor: "tomato",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: 0,
+                    borderRadius: 10,
+                    fontSize: fontSize
+                }}>
+                {text}
+            </button>
+        )
+    }
+    // props의 타입과 모양을 설명해줄 수 있다.
+    console.log(PropTypes);
+    // propTypes의 설정대로 하지 않는다면 렌더링되는데에는 문제가 없지만 console에 에러사항을 알려줌.
+    Btn.propTypes = {
+        text: PropTypes.string.isRequired, // 필수 값 설정
+        fontSize: PropTypes.number,
+    }
+    function App() {
+        return (
+            <div>
+                <Btn text="Save Changes" fontSize={18} />
+                {/* 이와 같이 잘못된 값을 넘기게 됐을 때 */}
+                {/* <Btn text={14} fontSize={"Continue"} /> */}
+                <Btn text={"Continue"} />
+            </div>
+        );
+    };
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+</script>
+
+</html>

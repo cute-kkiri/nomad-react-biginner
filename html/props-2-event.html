@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>React - props</title>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<!-- production.min으로 사용할 때는 일반적인 html property를 사용하는데에 문제가 없었지만 development 모드에서는 javascript에서 선점된 예약어는 사용할 수 없다. -->
+<!-- 따라서 class -> className, for -> htmlFor 등과 같이 바꿔서 작성해줘야 한다. -->
+<!-- React 엔진 -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<!-- React element UI 생성 -->
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<!-- babel - 브라우저가 jsx를 이해하게 도와주는 도구? -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    function Btn({ text, onClick }) {
+        console.log(text, "was rendered");
+        return (
+            <button
+                // onClick event를 props 값으로 받아와서 적용.
+                onClick={onClick}
+                style={{
+                    backgroundColor: "tomato",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: 0,
+                    borderRadius: 10,
+                }}>
+                {text}
+            </button>
+        )
+    }
+    // react에서 제공하는 version memo 기능
+    const MemorizedBtn = React.memo(Btn);
+
+    function App() {
+        // 부모 컨테이너가 state되는거.
+        const [value, setValue] = React.useState("Save Change");
+        const changValue = () => setValue("Revert Changes");
+        return (
+            <div>
+                {/* 여기에 click event를 넣으면 이건 단지 props일 뿐 event 함수가 적용되는 것이 아님. */}
+                {/* <Btn text={value} onClick={changValue} /> */}
+                <MemorizedBtn text={value} onClick={changValue} />
+                {/* <Btn text="Continue" /> */}
+                {/* props가 변경되지 않는다면 render하지 말라고 하는 것. - React Memo를 사용할 수 있다. */}
+                <MemorizedBtn text="Continue" />
+            </div>
+        );
+    };
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+</script>
+
+</html>

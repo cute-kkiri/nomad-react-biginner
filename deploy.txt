@@ -1,0 +1,9 @@
+$npm i gh-pages
+
+"scripts": {
+    "deploy": "gh-pages -d build",
+    "predeploy" : "npm run build"
+},
+
+
+"homepage": "https://cute-kkiri.github.io/react-for-beginners"
